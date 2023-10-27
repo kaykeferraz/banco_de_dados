@@ -1,0 +1,6 @@
+EXERCÍCIO 1
+
+CREATE TRIGGER Cliente_after_insert
+AFTER INSERT ON Clientes
+FOR EACH ROW
+  INSERT INTO Auditoria (mensagem) VALUES (CONCAT('Novo cliente inserido em ', NOW()));
