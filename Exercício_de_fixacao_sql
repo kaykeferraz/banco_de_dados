@@ -27,3 +27,12 @@ BEFORE UPDATE ON Clientes
 FOR EACH ROW
     INSERT INTO Auditoria (mensagem) VALUES (CONCAT('Tentativa de atualização inválida do nome do cliente em ', NOW()));
         
+EXERCÍCIO 5
+
+DELIMITER //
+CREATE TRIGGER Pedido_after_insert
+AFTER INSERT ON Pedidos
+FOR EACH ROW
+    IF (produto_estoque - NEW.quantidade) < 5 THEN
+        INSERT INTO Auditoria (mensagem) VALUES (CONCAT('Estoque do produto ', NEW.produto_id, ' está baixo (', produto_estoque - NEW.quantidade, ' unidades restantes) em ', NOW()));
+    
